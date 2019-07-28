@@ -23,7 +23,7 @@ trace1 = go.Scatter(
     y=[],
     stream=dict(
         token=in_stream_token,
-        maxpoints=200
+        maxpoints=10000
     ),
     mode = 'lines',
     name = 'in'
@@ -34,7 +34,7 @@ trace2 = go.Scatter(
     y=[],
     stream=dict(
         token=out_stream_token,
-        maxpoints=200
+        maxpoints=10000
     ),
     mode = 'lines',
     name = 'out'
