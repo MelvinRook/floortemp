@@ -66,12 +66,20 @@ out_stream.open()
 
 while True:
 
+    # Timestamp of measurement
     now = datetime.datetime.now()
-    temp_in = '{0:0.3f}'.format(sensor1.temperature)
-    temp_out = '{0:0.3f}'.format(sensor2.temperature)
 
-    in_stream.write(dict(x=now,y=temp_in))
-    out_stream.write(dict(x=now,y=temp_out))
+    # Sensor readout
+    temp_in = sensor1.temperature
+    temp_out = sensor2.temperature
+
+    # Values should be within acceptable bounds
+    if temp_in > 0 and temp_in < 70 and temp_out > 0 and temp_in < 70:
+        temp_in = '{0:0.3f}'.format(temp_in)
+        temp_out = '{0:0.3f}'.format(temp_out)
+
+        in_stream.write(dict(x=now,y=temp_in))
+        out_stream.write(dict(x=now,y=temp_out))
 
     time.sleep(30.0)
 
