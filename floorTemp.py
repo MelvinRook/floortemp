@@ -10,6 +10,8 @@ import numpy as np
 import plotly.plotly as py
 import plotly.tools as tls
 import plotly.graph_objs as go
+import sys
+import signal
 
 # Setup plotly credentials
 in_stream_token = ''
@@ -64,6 +66,14 @@ in_stream.open()
 out_stream = py.Stream(out_stream_token)
 out_stream.open()
 
+# Set signal handler
+def signal_handler(sig, frame):
+    print('caught SIGINT, closing..')
+    in_stream.close()
+    out_stream.close()
+    sys.exit(0)
+signal.signal(signal.SIGINT, signal_handler)
+
 while True:
 
     # Timestamp of measurement
@@ -83,5 +93,3 @@ while True:
 
     time.sleep(30.0)
 
-in_stream.close()
-out_stream.close()
